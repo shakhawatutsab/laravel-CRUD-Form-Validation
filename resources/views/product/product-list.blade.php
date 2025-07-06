@@ -4,7 +4,25 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2>Product List</h2>
+                <div class="row">
+                    <div class="col">
+                        <h2>Product List</h2>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/create-product" class="float-end btn btn-success" >Add new</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-striped">

@@ -20,7 +20,6 @@
                                 <a href="/create-product" class="float-end btn btn-success" >Add new</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

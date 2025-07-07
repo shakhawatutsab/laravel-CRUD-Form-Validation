@@ -57,7 +57,7 @@
                                     <td>{{ $product->status }}</td>
                                     <td>{{ $product->description }}</td>
                                     <td><a href="{{ route('product.show', ['id' => $product->id]) }}"class="btn btn-success btn-sm">show</a></td>
-                                    {{-- <td><a href="{{ route('product.show') }}" class="btn btn-success btn-sm">show</a></td> --}}
+                                    <td><a href="{{ route('product.edit', ['id' => $product->id]) }}"class="btn btn-primary btn-sm">edit</a></td>
                                 </tr>
                             @endforeach
                         @else

@@ -41,14 +41,11 @@ class ProductController extends Controller
         return view("product.show" , compact('product'));
     }
 
-    // public function show($id){
-    //         $product = Product::find($id);
-    //         return view("product.show",compact("product"));
-    //     }
+    public function edit($id){
+            $categories = Category::all();
+            $product = Product::find($id);
+            return view("product.edit",compact("product","categories"));
+        }
 
 
 }
-
-
-
-

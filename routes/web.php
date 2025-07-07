@@ -12,5 +12,5 @@ Route::get('/create-product', [ProductController::class,'create'])->name('produc
 Route::get('/store-product', [ProductController::class,'store'])->name('product.store');
 Route::get('show-product/{id}', [ProductController::class,'show'])->name('product.show');
 Route::get('edit-product/{id}', [ProductController::class,'edit'])->name('product.edit');
-Route::get('/update-product', [ProductController::class,'update'])->name('product.update');
+Route::post('/update-product/{id}',[ProductController::class,'update'])->name('product.update');
 Route::get('/destroy-product', [ProductController::class,'destroy'])->name('product.destroy');

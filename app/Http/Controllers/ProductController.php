@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use id;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -44,8 +46,28 @@ class ProductController extends Controller
     public function edit($id){
             $categories = Category::all();
             $product = Product::find($id);
-            return view("product.edit",compact("product","categories"));
+            return view("product.edit",compact("product","categories","id"));
+        }
+         public function update(Request $request, $id){
+            $validated = $request->validate([
+            "name" => "required|string",
+            "description" => 'nullable|string',
+            "price" =>"required|numeric",
+            "quantity" =>"required|numeric",
+            "status" => "required",
+            "category_id" =>"required",
+            "image" =>"nullable|image|mimes:jpg,png,jpeg"
+        ]);
+        if($request->image && Storage::disk("public")->exists($request->image)){
+            Storage::disk("public")->delete($request->image);
         }
 
+        $validated["image"] = $request->file("image")->store("products", "public");
 
+
+        Product::find( $id )->update($validated);
+
+        return redirect()->route("product.index")->with("success", "Product updated successfully!");
+
+}
 }

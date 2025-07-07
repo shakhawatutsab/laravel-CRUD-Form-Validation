@@ -7,7 +7,7 @@
                 Edit product
             </div>
             <div class="card-body">
-                <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('product.update', $id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @include('product.form')
                     <button type="submit" class="btn btn-primary">Update</button>

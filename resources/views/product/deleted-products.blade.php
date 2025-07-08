@@ -6,26 +6,19 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <h2>Product List</h2>
+                        <h2>Deleted product List</h2>
                     </div>
                     <div class="col">
                         <div class="row">
                             <div class="col-md-6">
-                                <form class="d-flex" role="search" action="{{ route("product.index") }}" method="GET">
+                                <form class="d-flex" role="search" action="{{ route("product.trashed") }}" method="GET">
                                     @csrf
                                     <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col">
-                                        <a href="{{ route("product.trashed") }}" class="float-end btn btn-warning" >Deleted</a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="/create-product" class="float-end btn btn-success" >Add new</a>
-                                    </div>
-                                </div>
+                                <a href="{{ route("product.index") }}" class="float-end btn btn-warning" >View All Products</a>
                             </div>
                         </div>
                     </div>
@@ -65,10 +58,15 @@
                                     <td>{{ $product->status }}</td>
                                     <td>{{ $product->description }}</td>
                                     <td><a href="{{ route('product.show',  $product->id) }}"class="btn btn-success btn-sm">show</a></td>
-                                    <td><a href="{{ route('product.edit', $product->id) }}"class="btn btn-primary btn-sm">edit</a>
-                                    </td>
                                     <td>
-                                        <form action="{{ route('product.destroy', $product->id) }}" method="POST"
+                                        <form action="{{ route('product.restore', $product->id) }}" method="POST"
+                                            style="display:inline-block">
+                                            @csrf @method('PUT')
+                                            <button onclick="return confirm('Are you sure?')"
+                                                class="btn btn-sm btn-info">Restore</button>
+                                        </form>
+                                    <td>
+                                        <form action="{{ route('product.delete', $product->id) }}" method="POST"
                                             style="display:inline-block">
                                             @csrf @method('DELETE')
                                             <button onclick="return confirm('Are you sure?')"

@@ -10,14 +10,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::all();
-        return view("product.product-list", compact("products"));
-    }
+    public function index(Request $request){
+        // $products = Product::all();
+        $query = Product::query();
+        if(request()->has("search") && $request->search){
+            $query = $query->where("name","like","%".$request->search."%")
+                        ->orWhere('description','like',"%".$request->search."%");
+        }
+        $products = $query->latest()->paginate(10);
 
-    public function create(){
-        $categories = Category::all();
-        return view("product.create",compact('categories'));
+        return view("product.product-list",compact("products"));
     }
 
     public function store(Request $request){
@@ -67,6 +69,10 @@ class ProductController extends Controller
         Product::find( $id )->update($validated);
 
         return redirect()->route("product.index")->with("success", "Product updated successfully!");
+    }
+    public function destroy($id){
+        Product::find($id)->delete();
+        return redirect()->route("product.index")->with("success", "producte deleted successfull");
+    }
 
-}
 }

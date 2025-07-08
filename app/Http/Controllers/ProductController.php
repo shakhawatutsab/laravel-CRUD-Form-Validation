@@ -21,6 +21,10 @@ class ProductController extends Controller
 
         return view("product.product-list",compact("products"));
     }
+    public function create(){
+        $categories = Category::all();
+        return view("product.create",compact("categories"));
+    }
 
     public function store(Request $request){
         $validated = $request->validate([
@@ -60,11 +64,12 @@ class ProductController extends Controller
             "category_id" =>"required",
             "image" =>"nullable|image|mimes:jpg,png,jpeg"
         ]);
-        if($request->image && Storage::disk("public")->exists($request->image)){
-            Storage::disk("public")->delete($request->image);
-        }
-
-        $validated["image"] = $request->file("image")->store("products", "public");
+        if ($request->hasFile("image")) {
+                    if($request->image && Storage::disk("public")->exists($request->image)){
+                        Storage::disk("public")->delete($request->image);
+                    }
+                    $validated["image"] = $request->file("image")->store("products","public");
+                }
 
         Product::find( $id )->update($validated);
 

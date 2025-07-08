@@ -11,8 +11,9 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-md-8">
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                                <form class="d-flex" role="search" action="{{ route("product.index") }}" method="GET">
+                                    @csrf
+                                    <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
                                     <button class="btn btn-outline-success" type="submit">Search</button>
                                 </form>
                             </div>
